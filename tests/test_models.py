@@ -8,11 +8,11 @@ class TestModels(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up an in-memory SQLite database for testing
+       
         cls.conn = sqlite3.connect(":memory:")
         cursor = cls.conn.cursor()
 
-        # Create the tables
+     
         cursor.execute("""
         CREATE TABLE authors (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -62,19 +62,19 @@ class TestModels(unittest.TestCase):
     def test_article_creation(self):
         cursor = self.conn.cursor()
 
-        # Insert mock data into authors and magazines
+        
         cursor.execute("INSERT INTO authors (id, name) VALUES (1, 'John Doe')")
         cursor.execute("INSERT INTO magazines (id, title, category) VALUES (1, 'Tech Weekly', 'Technology')")
         self.conn.commit()
 
-        # Create and insert an article object
+        
         cursor.execute("""
             INSERT INTO articles (title, content, author_id, magazine_id) 
             VALUES ('Test Title', 'Test Content', 1, 1)
         """)
         self.conn.commit()
 
-        # Test if the article was successfully created in the database
+       
         cursor.execute("SELECT * FROM articles WHERE title = 'Test Title'")
         article_data = cursor.fetchone()
         self.assertIsNotNone(article_data) 

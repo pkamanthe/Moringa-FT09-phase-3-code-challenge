@@ -1,4 +1,4 @@
-import sqlite3  # Add this import at the top of the file
+import sqlite3  
 
 class Article:
     def __init__(self, title, content, author, magazine):
@@ -12,8 +12,8 @@ class Article:
         """
         self._title = title
         self._content = content
-        self._author = author  # Store the Author object
-        self._magazine = magazine  # Store the Magazine object
+        self._author = author  
+        self._magazine = magazine  
         self.create_article()
 
     def create_article(self):
@@ -22,9 +22,8 @@ class Article:
         """
         conn = sqlite3.connect('magazine.db')
         cursor = conn.cursor()
-        # Use author's and magazine's ids from the passed objects
         cursor.execute('INSERT INTO articles (title, content, author_id, magazine_id) VALUES (?, ?, ?, ?)', 
                        (self._title, self._content, self._author.id, self._magazine.id))
         conn.commit()
-        self._id = cursor.lastrowid  # Get the last inserted ID
+        self._id = cursor.lastrowid  
         conn.close()
